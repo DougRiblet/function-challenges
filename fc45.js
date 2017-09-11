@@ -78,7 +78,7 @@ function collect(genFunc, outputArr){
 
 function filter(genFunc, predicate){
   return function(){
-    let val === null;
+    let val = null;
     while (val === null){
       let next = genFunc();
       if (next === undefined){
@@ -92,11 +92,41 @@ function filter(genFunc, predicate){
   }
 }
 
-let fil = filter(fromTo(0,8), x=>x%3===0);
+// let fil = filter(fromTo(0,8), x=>x%3===0);
+// console.log( 'should be 0: ', fil() );
+// console.log( 'should be 3: ', fil() );
+// console.log( 'should be 6: ', fil() );
+// console.log( 'should be und: ', fil() );
 
-console.log( 'should be 0: ', fil() );
-console.log( 'should be 3: ', fil() );
-console.log( 'should be 6: ', fil() );
-console.log( 'should be und: ', fil() );
+// Alternative ES6 version taking advantage of 
+// tail recursion
 
+function filterRecursive(genFunc, predicate){
+  return function recur(){
+    let val = genFunc();
+    if (val === undefined || predicate(val)){
+      return val
+    }
+    return recur();
+  }
+}
+
+function concat(gen1, gen2){
+  return function(){
+    let val = gen1();
+    if (val === undefined) {
+      return gen2();
+    }
+    return val;
+  }
+}
+
+// let con = concat(fromTo(0,3), fromTo(6,9));
+// console.log( 'should be 0', con() );
+// console.log( 'should be 1', con() );
+// console.log( 'should be 2', con() );
+// console.log( 'should be 6', con() );
+// console.log( 'should be 7', con() );
+// console.log( 'should be 8', con() );
+// console.log( 'should be und', con() );
 
