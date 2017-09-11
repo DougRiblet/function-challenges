@@ -86,7 +86,17 @@ function composeb(binary1, binary2){
   }
 }
 
-
+function limit(binaryfunction, numtimes){
+  let used = 0;
+  return function(a,b){
+    if (used < numtimes){
+      used++;
+      return binaryfunction(a,b);
+    } else {
+      return undefined;
+    }
+  }
+}
 
 
 
