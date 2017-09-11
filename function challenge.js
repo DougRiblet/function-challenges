@@ -51,6 +51,46 @@ var incC = liftf(add)(1);
 // the work; if you have already written a function that does what you need, 
 // you don't have to write another one."
 
+function twice(binaryfunction){
+  return function(a){
+    return binaryfunction(a,a);
+  }
+}
+
+var doubl = twice(add);
+var square = twice(mul);
+
+function reverse(binaryfunction){
+  return function(b,a){
+    return binaryfunction(a,b);
+  }
+}
+
+// alternative version of reverse using ES6
+// this will work for any number of arguments
+function reverse2(binaryfunction){
+  return function( ...args ){
+    return binaryfunction( ...args.reverse() );
+  }
+}
+
+function composeu(unary1, unary2){
+  return function(x){
+    return unary2( unary1(x) );
+  }
+}
+
+function composeb(binary1, binary2){
+  return function(d, e, f){
+    return binary2( binary1(d, e), f );
+  }
+}
+
+
+
+
+
+
 
 
 
